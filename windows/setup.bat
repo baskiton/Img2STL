@@ -12,7 +12,7 @@ call pip install --upgrade setuptools
 echo.
 echo Installing Dependency...
 echo.
-call pip install -r grep -v wxPython requirements.txt
+call pip install -r requirements.txt
 
 call %venv\scripts\deactivate.bat
 
