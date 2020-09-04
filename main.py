@@ -1016,7 +1016,7 @@ class MyFrame(wx.Frame):
                 w = cont_x * 0.75
                 h = (image_h * cont_x) / image_w * 0.75
 
-            image = image.Rescale(w, h)
+            image = image.Rescale(int(w), int(h))
 
             window = wx.ScrolledWindow(self.note, 0,
                                        style=wx.HSCROLL | wx.VSCROLL)
