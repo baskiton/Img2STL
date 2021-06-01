@@ -1,4 +1,0 @@
-six==1.15.0
-numpy==1.19.1
-wxPython==4.1.0
-Pillow==7.2.0

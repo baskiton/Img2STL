@@ -1,0 +1,10 @@
+#ifndef IMG2STL_THREADCOMMANDS_H_
+#define IMG2STL_THREADCOMMANDS_H_
+
+enum ThreadCommands {
+    thrCMD_POOL_END = 0,
+    thrCMD_POOL_POINT,
+    thrCMD_PBAR_UPD
+};
+
+#endif // IMG2STL_THREADCOMMANDS_H_
