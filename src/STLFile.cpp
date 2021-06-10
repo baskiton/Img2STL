@@ -45,7 +45,7 @@ void STLFile::to_bin(stl_bin **t_result, std::size_t &t_size) {
     uint32_t tri_cnt = m_polygons_list.size();
     t_size = sizeof(stl_bin) + sizeof(Polygon3<float>) * tri_cnt;
 
-    stl_bin *result = new(tri_cnt) stl_bin;
+    auto *result = new(tri_cnt) stl_bin;
 
     m_name.copy(reinterpret_cast<char *>(result->hdr), 80);
     result->tri_cnt = tri_cnt;

@@ -33,7 +33,7 @@ void Logging::DoLogLine(const wxString &t_level,
 void Logging::DoLogRecord(wxLogLevel t_level,
                           const wxString &t_msg,
                           const wxLogRecordInfo &t_info) {
-    wxString level_str = "";
+    wxString level_str;
     wxString postfix = "";
 
     if (t_level <= wxLOG_Warning || t_level == wxLOG_Trace || t_level == wxLOG_Debug) {
@@ -72,6 +72,7 @@ void Logging::DoLogRecord(wxLogLevel t_level,
 
         case wxLOG_Progress:
             level_str = "PROGRESS";
+            break;
 
         default:
             level_str = "USER";

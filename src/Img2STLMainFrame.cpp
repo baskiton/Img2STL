@@ -1,13 +1,11 @@
 #include <map>
 
 #include "Img2STLMainFrame.h"
-#include "wx/msgdlg.h"
 #include "wx/aboutdlg.h"
 #include "wx/filedlg.h"
 #include "wx/dirdlg.h"
 #include "wx/hashmap.h"
 #include "wx/statbmp.h"
-#include "wx/quantize.h"
 #include "wx/colordlg.h"
 #include "wx/msgqueue.h"
 
@@ -16,7 +14,7 @@
 #include "ThreadCommands.h"
 
 
-//helper functions
+// helper functions
 enum wxbuildinfoformat {
     short_f,
     long_f
@@ -272,10 +270,10 @@ void Img2STLMainFrame::execute_buttonOnButtonClick(wxCommandEvent &event) {
 }
 
 void Img2STLMainFrame::image_panel_containerOnSize(wxSizeEvent &event) {
-    /**
-    I don’t understand why yet, but this method is called twice,
-    so this is where the "protection" is organized using a counter
-    */
+    /** FIXME:
+     * I don’t understand why yet, but this method is called twice,
+     * so this is where the "protection" is organized using a counter
+     */
     static int cnt = 0;
 
     if (cnt) {
@@ -394,7 +392,7 @@ void Img2STLMainFrame::set_prop_exit_label() {
 
 void Img2STLMainFrame::fill_palette(wxImage *t_img) {
     struct color_table {
-        unsigned long count;
+        unsigned count{};
         wxColour color;
     };
 

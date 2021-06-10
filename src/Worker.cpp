@@ -5,14 +5,12 @@
 
 
 Worker::Worker(MessageQueue<WorkerMessage> &t_q_from_exec,
-               wxMessageQueue<STLFile> &t_q_to_exec,
-               double t_den, int t_exit_type)
+               wxMessageQueue<STLFile> &t_q_to_exec, double t_den)
     :
         wxThread(wxTHREAD_JOINABLE),
         m_q_from_exec(&t_q_from_exec),
         m_q_to_exec(&t_q_to_exec),
-        m_density(static_cast<float>(t_den)),
-        m_file_format(t_exit_type)
+        m_density(static_cast<float>(t_den))
     {
     wxLogInfo("Worker created.");
 }

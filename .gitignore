@@ -33,10 +33,11 @@
 
 # My
 .vscode/
+.idea/
 bin/
 build/
+cmake-build-debug/
+cmake-build-release/
 dep/
-lib/
 include/msvc/
 include/wx/
-src/fip/

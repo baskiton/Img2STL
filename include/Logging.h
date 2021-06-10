@@ -8,8 +8,8 @@
 
 class Logging : public wxLog {
 public:
-    Logging(const wxString &t_log_file_name);
-    ~Logging();
+    explicit Logging(const wxString &t_log_file_name);
+    ~Logging() wxOVERRIDE;
 
     bool is_ok() { return m_log_file.IsOpened() && !m_log_file.Error(); }
 

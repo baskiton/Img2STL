@@ -76,7 +76,7 @@ wxThread::ExitCode Executor::Entry() {
         wxQueueEvent(m_main_evt_handler, m_event.Clone());
 
         for (auto i = 0; i < cpu_cnt; ++i) {
-            auto *thr = new Worker(m_q_to_worker, m_q_from_worker, m_density, m_f_type);
+            auto *thr = new Worker(m_q_to_worker, m_q_from_worker, m_density);
 
             /*
              * at this time setting priority allowed only for windows

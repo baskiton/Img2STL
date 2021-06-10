@@ -14,8 +14,7 @@
 class Worker : public wxThread {
 public:
     Worker(MessageQueue<WorkerMessage> &t_q_from_exec,
-           wxMessageQueue<STLFile> &t_q_to_exec,
-           double t_den, int t_exit_type);
+           wxMessageQueue<STLFile> &t_q_to_exec, double t_den);
     ~Worker() wxOVERRIDE;
 
 protected:
@@ -24,8 +23,6 @@ protected:
     MessageQueue<WorkerMessage> *m_q_from_exec;
     wxMessageQueue<STLFile> *m_q_to_exec;
     float m_density;
-    wxColour m_color;
-    int m_file_format;
     STLFile m_file;
 
 private:
