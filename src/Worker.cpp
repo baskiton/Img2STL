@@ -14,10 +14,17 @@ Worker::Worker(MessageQueue<WorkerMessage> &t_q_from_exec,
         m_density(static_cast<float>(t_den)),
         m_file_format(t_exit_type)
     {
+    wxLogInfo("Worker created.");
+}
+
+Worker::~Worker() {
+    wxLogInfo("Worker destroyed.");
 }
 
 wxThread::ExitCode Worker::Entry() {
     WorkerMessage msg{};
+
+    wxLogInfo("Worker is running.");
 
     while (!TestDestroy()) {
         m_q_from_exec->Receive(msg);

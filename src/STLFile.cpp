@@ -1,3 +1,5 @@
+#include "wx/log.h"
+
 #include "STLFile.h"
 
 
@@ -63,7 +65,7 @@ void STLFile::save_file(STLFile::file_type f_type, const wxFileName &filename) {
     wxFile file(filename.GetFullPath(), wxFile::write);
 
     if (!file.IsOpened()) {
-        /** TODO: some error. can not open file. exit */
+        wxLogError(wxString::Format("Cannot open file %s to write!", filename.GetFullPath()));
         return;
     }
 
@@ -80,4 +82,5 @@ void STLFile::save_file(STLFile::file_type f_type, const wxFileName &filename) {
     }
 
     file.Close();
+    wxLogInfo(wxString::Format("File %s created.", filename.GetFullName()));
 }

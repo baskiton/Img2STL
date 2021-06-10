@@ -39,6 +39,7 @@ Executor::Executor(
         m_height_mode(t_height_mode),
         m_f_type(t_f_type)
     {
+    wxLogInfo("Executor created.");
 }
 
 wxThread::ExitCode Executor::Entry() {
@@ -48,6 +49,8 @@ wxThread::ExitCode Executor::Entry() {
 
         return (wxThread::ExitCode)nullptr;
     }
+
+    wxLogInfo("Executor is running.");
 
     auto points_per_file = 100.0 / static_cast<double>(m_files_list.GetCount());
     double pb_val = 0.0;
@@ -66,6 +69,8 @@ wxThread::ExitCode Executor::Entry() {
         if (TestDestroy())
             break;
 
+        wxLogInfo(wxString::Format("Executing for %s.", img_name));
+
         m_event.SetId(thrCMD_POOL_POINT);
         m_event.SetString(img_name);
         wxQueueEvent(m_main_evt_handler, m_event.Clone());
@@ -79,15 +84,14 @@ wxThread::ExitCode Executor::Entry() {
             //  */
 
             if (thr->Run() != wxTHREAD_NO_ERROR) {
-                wxLogError("Can't start worker thread!");
+                wxLogWarning("Can't start worker thread!");
                 continue;
             }
             m_thr_pool.Add(thr);
         }
 
         if (!m_thr_pool.GetCount()) {
-            /** TODO: some error - thread list is empty. terminating. Notify main thread */
-            wxLogError("No worker threads have been created!");
+            wxLogError("No worker threads have been created! Thread list is empty!");
             break;
         }
 
@@ -173,6 +177,7 @@ wxThread::ExitCode Executor::Entry() {
 Executor::~Executor() {
     wxCriticalSectionLocker enter(m_main_evt_handler->m_executor_CS);
     m_main_evt_handler->m_executor = nullptr;
+    wxLogInfo("Executor destroyed.");
 }
 
 void Executor::OnDelete() {

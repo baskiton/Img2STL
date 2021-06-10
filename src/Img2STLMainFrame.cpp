@@ -49,9 +49,11 @@ Img2STLMainFrame::Img2STLMainFrame(const wxString &t_title)
         MainFrame(nullptr, wxID_ANY, t_title),
         m_files_directory(wxGetCwd()),
         m_exit_files_dir(wxGetCwd()),
-        m_executor(nullptr)
+        m_executor(nullptr),
+        m_logger("log.txt")
     {
     Bind(wxEVT_THREAD, &Img2STLMainFrame::OnThreadUpdate, this);
+    wxLogInfo("The program is running.");
 }
 
 void Img2STLMainFrame::OnThreadUpdate(wxThreadEvent &event) {
@@ -78,6 +80,7 @@ void Img2STLMainFrame::OnThreadUpdate(wxThreadEvent &event) {
 }
 
 void Img2STLMainFrame::OnClose(wxCloseEvent &event) {
+    wxLogInfo("Closing the program.");
     {
         wxCriticalSectionLocker enter(m_executor_CS);
         if (m_executor) {
@@ -136,6 +139,8 @@ void Img2STLMainFrame::prop_image_openOnButtonClick(wxCommandEvent &event) {
         wxFD_OPEN | wxFD_MULTIPLE | wxFD_CHANGE_DIR // style
     );
 
+    wxString names = "";
+
     if (open_file_dlg.ShowModal() == wxID_CANCEL)
         return;
 
@@ -145,10 +150,13 @@ void Img2STLMainFrame::prop_image_openOnButtonClick(wxCommandEvent &event) {
     open_file_dlg.GetFilenames(m_exit_files);
 
     for (auto &item : m_exit_files) {
+        names += item + "; ";
         wxFileName fn(item);
         fn.SetExt("stl");
         item = fn.GetFullName();
     }
+
+    wxLogInfo(wxString::Format("Files %s opened.", names));
 
     set_prop_exit_label();
     add_image_tabs();
@@ -214,6 +222,8 @@ void Img2STLMainFrame::prop_exit_btnOnButtonClick(wxCommandEvent &event) {
         m_exit_files_dir = save_dir_dlg.GetPath();
     }
 
+    wxLogInfo(wxString::Format("Exit directory changed to %s", m_exit_files_dir));
+
     set_prop_exit_label();
 }
 
@@ -233,8 +243,6 @@ void Img2STLMainFrame::execute_buttonOnButtonClick(wxCommandEvent &event) {
 
     if (m_executor->Run() != wxTHREAD_NO_ERROR) {
         delete m_executor;
-        wxMessageDialog dg(this, "Can't start Executor thread!");
-        dg.ShowModal();
         wxLogError("Can't start Executor thread!");
         return;
     }

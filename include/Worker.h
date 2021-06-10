@@ -16,7 +16,7 @@ public:
     Worker(MessageQueue<WorkerMessage> &t_q_from_exec,
            wxMessageQueue<STLFile> &t_q_to_exec,
            double t_den, int t_exit_type);
-    // ~Worker() wxOVERRIDE = default;
+    ~Worker() wxOVERRIDE;
 
 protected:
     wxThread::ExitCode Entry() wxOVERRIDE;

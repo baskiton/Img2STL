@@ -4,15 +4,16 @@
 #include <vector>
 
 #include "wx/event.h"
-#include "wx/image.h"
 #include "wx/filename.h"
+#include "wx/image.h"
+#include "wx/log.h"
 
 #include "ui.h"
 #include "Executor.h"
+#include "Logging.h"
 
 
-class Img2STLMainFrame : public MainFrame
-{
+class Img2STLMainFrame : public MainFrame, private wxLog {
 protected:
     // Handlers for MainFrame events.
     void OnClose(wxCloseEvent &event) wxOVERRIDE;
@@ -51,6 +52,8 @@ private:
     void change_image_scale();
     void set_prop_exit_label();
     void fill_palette(wxImage *t_img);
+
+    Logging m_logger;
 };
 
 #endif // IMG2STL_IMG2STLMAINFRAME_H_

@@ -46,6 +46,7 @@ target_sources(
         src/Worker.cpp
         src/ImgExtFunc.cpp
         src/STLFile.cpp
+        src/Logging.cpp
 )
 
 add_compile_options(
