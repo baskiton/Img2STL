@@ -14,268 +14,268 @@ MainFrame::MainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 	this->SetSizeHints( wxSize( 700,530 ), wxDefaultSize );
 	this->SetFont( wxFont( 9, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Noto Sans") ) );
 
-	menubar = new wxMenuBar( 0 );
-	menubar->SetFont( wxFont( 9, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Noto Sans") ) );
+	m_menu_bar = new wxMenuBar( 0 );
+	m_menu_bar->SetFont( wxFont( 9, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Noto Sans") ) );
 
-	menu_file = new wxMenu();
-	menu_file->AppendSeparator();
+	m_menu_file = new wxMenu();
+	m_menu_file->AppendSeparator();
 
-	wxMenuItem* menu_file_exit;
-	menu_file_exit = new wxMenuItem( menu_file, wxID_EXIT, wxString( wxT("&Quit") ) , wxEmptyString, wxITEM_NORMAL );
-	menu_file->Append( menu_file_exit );
+	wxMenuItem* m_menu_file_exit;
+	m_menu_file_exit = new wxMenuItem( m_menu_file, wxID_EXIT, wxString( wxT("&Quit") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menu_file->Append( m_menu_file_exit );
 
-	menubar->Append( menu_file, wxT("File") );
+	m_menu_bar->Append( m_menu_file, wxT("File") );
 
-	menu_help = new wxMenu();
-	menu_help->AppendSeparator();
+	m_menu_help = new wxMenu();
+	m_menu_help->AppendSeparator();
 
-	wxMenuItem* menu_help_about;
-	menu_help_about = new wxMenuItem( menu_help, wxID_ABOUT, wxString( wxT("&About") ) , wxEmptyString, wxITEM_NORMAL );
-	menu_help->Append( menu_help_about );
+	wxMenuItem* m_menu_help_about;
+	m_menu_help_about = new wxMenuItem( m_menu_help, wxID_ABOUT, wxString( wxT("&About") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menu_help->Append( m_menu_help_about );
 
-	menubar->Append( menu_help, wxT("Help") );
+	m_menu_bar->Append( m_menu_help, wxT("Help") );
 
-	this->SetMenuBar( menubar );
+	this->SetMenuBar( m_menu_bar );
 
-	wxBoxSizer* main_sizer;
-	main_sizer = new wxBoxSizer( wxVERTICAL );
+	wxBoxSizer* m_main_sizer;
+	m_main_sizer = new wxBoxSizer( wxVERTICAL );
 
-	main_container = new wxSplitterWindow( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_LIVE_UPDATE|wxSP_NOSASH );
-	main_container->Connect( wxEVT_IDLE, wxIdleEventHandler( MainFrame::main_containerOnIdle ), NULL, this );
+	m_main_container = new wxSplitterWindow( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_LIVE_UPDATE|wxSP_NOSASH );
+	m_main_container->Connect( wxEVT_IDLE, wxIdleEventHandler( MainFrame::m_main_containerOnIdle ), NULL, this );
 
-	prop_panel = new wxPanel( main_container, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	prop_panel->SetMinSize( wxSize( 200,-1 ) );
+	m_prop_panel = new wxPanel( m_main_container, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	m_prop_panel->SetMinSize( wxSize( 200,-1 ) );
 
-	wxBoxSizer* prop_sizer;
-	prop_sizer = new wxBoxSizer( wxVERTICAL );
+	wxBoxSizer* m_prop_sizer;
+	m_prop_sizer = new wxBoxSizer( wxVERTICAL );
 
-	wxStaticBoxSizer* prop_image_open_sizer;
-	prop_image_open_sizer = new wxStaticBoxSizer( new wxStaticBox( prop_panel, wxID_ANY, wxT("Open Image") ), wxHORIZONTAL );
+	wxStaticBoxSizer* m_prop_image_open_sizer;
+	m_prop_image_open_sizer = new wxStaticBoxSizer( new wxStaticBox( m_prop_panel, wxID_ANY, wxT("Open Image") ), wxHORIZONTAL );
 
-	prop_image_open = new wxButton( prop_image_open_sizer->GetStaticBox(), wxID_OPEN, wxT("Open Image(s)"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_prop_image_open = new wxButton( m_prop_image_open_sizer->GetStaticBox(), wxID_OPEN, wxT("Open Image(s)"), wxDefaultPosition, wxDefaultSize, 0 );
 
-	prop_image_open->SetDefault();
-	prop_image_open_sizer->Add( prop_image_open, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	m_prop_image_open->SetDefault();
+	m_prop_image_open_sizer->Add( m_prop_image_open, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 
-	prop_image_autocrop = new wxCheckBox( prop_image_open_sizer->GetStaticBox(), wxID_ANY, wxT("Auto Crop"), wxDefaultPosition, wxDefaultSize, 0 );
-	prop_image_autocrop->SetValue(true);
-	prop_image_open_sizer->Add( prop_image_autocrop, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	m_prop_image_autocrop = new wxCheckBox( m_prop_image_open_sizer->GetStaticBox(), wxID_ANY, wxT("Auto Crop"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_prop_image_autocrop->SetValue(true);
+	m_prop_image_open_sizer->Add( m_prop_image_autocrop, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 
 
-	prop_sizer->Add( prop_image_open_sizer, 0, wxRIGHT|wxLEFT|wxEXPAND, 5 );
+	m_prop_sizer->Add( m_prop_image_open_sizer, 0, wxRIGHT|wxLEFT|wxEXPAND, 5 );
 
-	wxStaticBoxSizer* prop_prop_sizer;
-	prop_prop_sizer = new wxStaticBoxSizer( new wxStaticBox( prop_panel, wxID_ANY, wxT("Property") ), wxVERTICAL );
+	wxStaticBoxSizer* m_prop_prop_sizer;
+	m_prop_prop_sizer = new wxStaticBoxSizer( new wxStaticBox( m_prop_panel, wxID_ANY, wxT("Property") ), wxVERTICAL );
 
-	wxFlexGridSizer* prop_prop_grid;
-	prop_prop_grid = new wxFlexGridSizer( 0, 2, 3, 3 );
-	prop_prop_grid->SetFlexibleDirection( wxBOTH );
-	prop_prop_grid->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	wxFlexGridSizer* m_prop_prop_grid;
+	m_prop_prop_grid = new wxFlexGridSizer( 0, 2, 3, 3 );
+	m_prop_prop_grid->SetFlexibleDirection( wxBOTH );
+	m_prop_prop_grid->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 
-	prop_den_lable = new wxStaticText( prop_prop_sizer->GetStaticBox(), wxID_ANY, wxT("Density (mm/pix)"), wxDefaultPosition, wxDefaultSize, 0 );
-	prop_den_lable->Wrap( -1 );
-	prop_prop_grid->Add( prop_den_lable, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
+	m_prop_den_lable = new wxStaticText( m_prop_prop_sizer->GetStaticBox(), wxID_ANY, wxT("Density (mm/pix)"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_prop_den_lable->Wrap( -1 );
+	m_prop_prop_grid->Add( m_prop_den_lable, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
 
-	prop_den_val = new wxSpinCtrlDouble( prop_prop_sizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0, 0, 1000, 2, 0.001 );
-	prop_den_val->SetDigits( 3 );
-	prop_prop_grid->Add( prop_den_val, 0, wxEXPAND|wxRIGHT|wxLEFT|wxALIGN_CENTER_VERTICAL, 5 );
+	m_prop_den_val = new wxSpinCtrlDouble( m_prop_prop_sizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0, 0, 1000, 2, 0.001 );
+	m_prop_den_val->SetDigits( 3 );
+	m_prop_prop_grid->Add( m_prop_den_val, 0, wxEXPAND|wxRIGHT|wxLEFT|wxALIGN_CENTER_VERTICAL, 5 );
 
-	prop_max_height_lable = new wxStaticText( prop_prop_sizer->GetStaticBox(), wxID_ANY, wxT("Max Height (mm)"), wxDefaultPosition, wxDefaultSize, 0 );
-	prop_max_height_lable->Wrap( -1 );
-	prop_prop_grid->Add( prop_max_height_lable, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
+	m_prop_max_height_lable = new wxStaticText( m_prop_prop_sizer->GetStaticBox(), wxID_ANY, wxT("Max Height (mm)"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_prop_max_height_lable->Wrap( -1 );
+	m_prop_prop_grid->Add( m_prop_max_height_lable, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
 
-	prop_max_height_val = new wxSpinCtrlDouble( prop_prop_sizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0, 0, 1000, 4, 0.001 );
-	prop_max_height_val->SetDigits( 3 );
-	prop_prop_grid->Add( prop_max_height_val, 0, wxRIGHT|wxLEFT|wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
+	m_prop_max_height_val = new wxSpinCtrlDouble( m_prop_prop_sizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0, 0, 1000, 4, 0.001 );
+	m_prop_max_height_val->SetDigits( 3 );
+	m_prop_prop_grid->Add( m_prop_max_height_val, 0, wxRIGHT|wxLEFT|wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
 
-	prop_min_height_lable = new wxStaticText( prop_prop_sizer->GetStaticBox(), wxID_ANY, wxT("Min Height (mm)"), wxDefaultPosition, wxDefaultSize, 0 );
-	prop_min_height_lable->Wrap( -1 );
-	prop_prop_grid->Add( prop_min_height_lable, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
+	m_prop_min_height_lable = new wxStaticText( m_prop_prop_sizer->GetStaticBox(), wxID_ANY, wxT("Min Height (mm)"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_prop_min_height_lable->Wrap( -1 );
+	m_prop_prop_grid->Add( m_prop_min_height_lable, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
 
-	prop_min_height_val = new wxSpinCtrlDouble( prop_prop_sizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0, 0, 1000, 1, 0.001 );
-	prop_min_height_val->SetDigits( 3 );
-	prop_prop_grid->Add( prop_min_height_val, 0, wxRIGHT|wxLEFT|wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
+	m_prop_min_height_val = new wxSpinCtrlDouble( m_prop_prop_sizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0, 0, 1000, 1, 0.001 );
+	m_prop_min_height_val->SetDigits( 3 );
+	m_prop_prop_grid->Add( m_prop_min_height_val, 0, wxRIGHT|wxLEFT|wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
 
-	prop_mask_mode_lable = new wxStaticText( prop_prop_sizer->GetStaticBox(), wxID_ANY, wxT("Mask Mode"), wxDefaultPosition, wxDefaultSize, 0 );
-	prop_mask_mode_lable->Wrap( -1 );
-	prop_prop_grid->Add( prop_mask_mode_lable, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
+	m_prop_mask_mode_lable = new wxStaticText( m_prop_prop_sizer->GetStaticBox(), wxID_ANY, wxT("Mask Mode"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_prop_mask_mode_lable->Wrap( -1 );
+	m_prop_prop_grid->Add( m_prop_mask_mode_lable, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
 
-	wxString prop_mask_mode_valChoices[] = { wxT("Transparency"), wxT("Color") };
-	int prop_mask_mode_valNChoices = sizeof( prop_mask_mode_valChoices ) / sizeof( wxString );
-	prop_mask_mode_val = new wxChoice( prop_prop_sizer->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), prop_mask_mode_valNChoices, prop_mask_mode_valChoices, 0 );
-	prop_mask_mode_val->SetSelection( 0 );
-	prop_prop_grid->Add( prop_mask_mode_val, 0, wxRIGHT|wxLEFT|wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
+	wxString m_prop_mask_mode_valChoices[] = { wxT("Transparency"), wxT("Color") };
+	int m_prop_mask_mode_valNChoices = sizeof( m_prop_mask_mode_valChoices ) / sizeof( wxString );
+	m_prop_mask_mode_val = new wxChoice( m_prop_prop_sizer->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), m_prop_mask_mode_valNChoices, m_prop_mask_mode_valChoices, 0 );
+	m_prop_mask_mode_val->SetSelection( 0 );
+	m_prop_prop_grid->Add( m_prop_mask_mode_val, 0, wxRIGHT|wxLEFT|wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
 
-	prop_transp_col_lable = new wxStaticText( prop_prop_sizer->GetStaticBox(), wxID_ANY, wxT("Transparency color"), wxDefaultPosition, wxDefaultSize, 0 );
-	prop_transp_col_lable->Wrap( -1 );
-	prop_transp_col_lable->Enable( false );
+	m_prop_transp_col_lable = new wxStaticText( m_prop_prop_sizer->GetStaticBox(), wxID_ANY, wxT("Transparency color"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_prop_transp_col_lable->Wrap( -1 );
+	m_prop_transp_col_lable->Enable( false );
 
-	prop_prop_grid->Add( prop_transp_col_lable, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
+	m_prop_prop_grid->Add( m_prop_transp_col_lable, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
 
-	prop_transp_col_val = new wxButton( prop_prop_sizer->GetStaticBox(), wxID_ANY, wxT("#FF00FF"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
-	prop_transp_col_val->SetBackgroundColour( wxColour( 255, 0, 255 ) );
-	prop_transp_col_val->Enable( false );
+	m_prop_transp_col_val = new wxButton( m_prop_prop_sizer->GetStaticBox(), wxID_ANY, wxT("#FF00FF"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
+	m_prop_transp_col_val->SetBackgroundColour( wxColour( 255, 0, 255 ) );
+	m_prop_transp_col_val->Enable( false );
 
-	prop_prop_grid->Add( prop_transp_col_val, 0, wxRIGHT|wxLEFT|wxALIGN_CENTER_VERTICAL|wxEXPAND, 5 );
+	m_prop_prop_grid->Add( m_prop_transp_col_val, 0, wxRIGHT|wxLEFT|wxALIGN_CENTER_VERTICAL|wxEXPAND, 5 );
 
-	prop_height_mode_lable = new wxStaticText( prop_prop_sizer->GetStaticBox(), wxID_ANY, wxT("Height Mode"), wxDefaultPosition, wxDefaultSize, 0 );
-	prop_height_mode_lable->Wrap( -1 );
-	prop_prop_grid->Add( prop_height_mode_lable, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
+	m_prop_height_mode_lable = new wxStaticText( m_prop_prop_sizer->GetStaticBox(), wxID_ANY, wxT("Height Mode"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_prop_height_mode_lable->Wrap( -1 );
+	m_prop_prop_grid->Add( m_prop_height_mode_lable, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
 
-	wxString prop_height_mode_valChoices[] = { wxT("Black"), wxT("White") };
-	int prop_height_mode_valNChoices = sizeof( prop_height_mode_valChoices ) / sizeof( wxString );
-	prop_height_mode_val = new wxChoice( prop_prop_sizer->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), prop_height_mode_valNChoices, prop_height_mode_valChoices, 0 );
-	prop_height_mode_val->SetSelection( 1 );
-	prop_prop_grid->Add( prop_height_mode_val, 0, wxEXPAND|wxALIGN_CENTER_VERTICAL|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
+	wxString m_prop_height_mode_valChoices[] = { wxT("Black"), wxT("White") };
+	int m_prop_height_mode_valNChoices = sizeof( m_prop_height_mode_valChoices ) / sizeof( wxString );
+	m_prop_height_mode_val = new wxChoice( m_prop_prop_sizer->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), m_prop_height_mode_valNChoices, m_prop_height_mode_valChoices, 0 );
+	m_prop_height_mode_val->SetSelection( 1 );
+	m_prop_prop_grid->Add( m_prop_height_mode_val, 0, wxEXPAND|wxALIGN_CENTER_VERTICAL|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 
 
-	prop_prop_sizer->Add( prop_prop_grid, 0, 0, 5 );
+	m_prop_prop_sizer->Add( m_prop_prop_grid, 0, 0, 5 );
 
 
-	prop_sizer->Add( prop_prop_sizer, 0, wxEXPAND|wxRIGHT|wxLEFT, 5 );
+	m_prop_sizer->Add( m_prop_prop_sizer, 0, wxEXPAND|wxRIGHT|wxLEFT, 5 );
 
-	wxStaticBoxSizer* prop_exit_sizer;
-	prop_exit_sizer = new wxStaticBoxSizer( new wxStaticBox( prop_panel, wxID_ANY, wxT("Exit File") ), wxVERTICAL );
+	wxStaticBoxSizer* m_prop_exit_sizer;
+	m_prop_exit_sizer = new wxStaticBoxSizer( new wxStaticBox( m_prop_panel, wxID_ANY, wxT("Exit File") ), wxVERTICAL );
 
-	wxBoxSizer* prop_exit_grid;
-	prop_exit_grid = new wxBoxSizer( wxHORIZONTAL );
+	wxBoxSizer* m_prop_exit_grid;
+	m_prop_exit_grid = new wxBoxSizer( wxHORIZONTAL );
 
-	prop_exit_label = new wxStaticText( prop_exit_sizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT|wxST_ELLIPSIZE_MIDDLE|wxST_NO_AUTORESIZE );
-	prop_exit_label->Wrap( -1 );
-	prop_exit_grid->Add( prop_exit_label, 1, wxALIGN_CENTER_VERTICAL|wxRIGHT|wxLEFT, 5 );
+	m_prop_exit_label = new wxStaticText( m_prop_exit_sizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT|wxST_ELLIPSIZE_MIDDLE|wxST_NO_AUTORESIZE );
+	m_prop_exit_label->Wrap( -1 );
+	m_prop_exit_grid->Add( m_prop_exit_label, 1, wxALIGN_CENTER_VERTICAL|wxRIGHT|wxLEFT, 5 );
 
-	prop_exit_btn = new wxButton( prop_exit_sizer->GetStaticBox(), wxID_ANY, wxT("Choose"), wxDefaultPosition, wxDefaultSize, 0 );
-	prop_exit_btn->Enable( false );
+	m_prop_exit_btn = new wxButton( m_prop_exit_sizer->GetStaticBox(), wxID_ANY, wxT("Choose"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_prop_exit_btn->Enable( false );
 
-	prop_exit_grid->Add( prop_exit_btn, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
+	m_prop_exit_grid->Add( m_prop_exit_btn, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
 
 
-	prop_exit_sizer->Add( prop_exit_grid, 0, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
+	m_prop_exit_sizer->Add( m_prop_exit_grid, 0, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 
-	wxString prop_exit_formatChoices[] = { wxT("ASCII"), wxT("BIN") };
-	int prop_exit_formatNChoices = sizeof( prop_exit_formatChoices ) / sizeof( wxString );
-	prop_exit_format = new wxRadioBox( prop_exit_sizer->GetStaticBox(), wxID_ANY, wxT("STL format"), wxDefaultPosition, wxDefaultSize, prop_exit_formatNChoices, prop_exit_formatChoices, 1, wxRA_SPECIFY_ROWS );
-	prop_exit_format->SetSelection( 1 );
-	prop_exit_sizer->Add( prop_exit_format, 0, wxBOTTOM|wxLEFT, 5 );
+	wxString m_prop_exit_formatChoices[] = { wxT("ASCII"), wxT("BIN") };
+	int m_prop_exit_formatNChoices = sizeof( m_prop_exit_formatChoices ) / sizeof( wxString );
+	m_prop_exit_format = new wxRadioBox( m_prop_exit_sizer->GetStaticBox(), wxID_ANY, wxT("STL format"), wxDefaultPosition, wxDefaultSize, m_prop_exit_formatNChoices, m_prop_exit_formatChoices, 1, wxRA_SPECIFY_ROWS );
+	m_prop_exit_format->SetSelection( 1 );
+	m_prop_exit_sizer->Add( m_prop_exit_format, 0, wxBOTTOM|wxLEFT, 5 );
 
 
-	prop_sizer->Add( prop_exit_sizer, 0, wxEXPAND|wxRIGHT|wxLEFT, 5 );
+	m_prop_sizer->Add( m_prop_exit_sizer, 0, wxEXPAND|wxRIGHT|wxLEFT, 5 );
 
-	wxStaticBoxSizer* prop_execute_sizer;
-	prop_execute_sizer = new wxStaticBoxSizer( new wxStaticBox( prop_panel, wxID_ANY, wxT("Execute") ), wxVERTICAL );
+	wxStaticBoxSizer* m_prop_execute_sizer;
+	m_prop_execute_sizer = new wxStaticBoxSizer( new wxStaticBox( m_prop_panel, wxID_ANY, wxT("Execute") ), wxVERTICAL );
 
-	execute_button = new wxButton( prop_execute_sizer->GetStaticBox(), wxID_ANY, wxT("Execute"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_execute_button = new wxButton( m_prop_execute_sizer->GetStaticBox(), wxID_ANY, wxT("Execute"), wxDefaultPosition, wxDefaultSize, 0 );
 
-	execute_button->SetDefault();
-	execute_button->Enable( false );
+	m_execute_button->SetDefault();
+	m_execute_button->Enable( false );
 
-	prop_execute_sizer->Add( execute_button, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+	m_prop_execute_sizer->Add( m_execute_button, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
 
-	progress_bar = new wxGauge( prop_execute_sizer->GetStaticBox(), wxID_ANY, 100, wxDefaultPosition, wxDefaultSize, wxGA_HORIZONTAL|wxGA_SMOOTH );
-	progress_bar->SetValue( 0 );
-	prop_execute_sizer->Add( progress_bar, 0, wxALL|wxEXPAND, 5 );
+	m_progress_bar = new wxGauge( m_prop_execute_sizer->GetStaticBox(), wxID_ANY, 100, wxDefaultPosition, wxDefaultSize, wxGA_HORIZONTAL|wxGA_SMOOTH );
+	m_progress_bar->SetValue( 0 );
+	m_prop_execute_sizer->Add( m_progress_bar, 0, wxALL|wxEXPAND, 5 );
 
-	progress_label = new wxStaticText( prop_execute_sizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	progress_label->Wrap( -1 );
-	prop_execute_sizer->Add( progress_label, 0, wxALIGN_CENTER_HORIZONTAL|wxBOTTOM, 5 );
+	m_progress_label = new wxStaticText( m_prop_execute_sizer->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_progress_label->Wrap( -1 );
+	m_prop_execute_sizer->Add( m_progress_label, 0, wxALIGN_CENTER_HORIZONTAL|wxBOTTOM, 5 );
 
 
-	prop_sizer->Add( prop_execute_sizer, 0, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
+	m_prop_sizer->Add( m_prop_execute_sizer, 0, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 
 
-	prop_panel->SetSizer( prop_sizer );
-	prop_panel->Layout();
-	prop_sizer->Fit( prop_panel );
-	imagepanel = new wxScrolledWindow( main_container, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHSCROLL|wxVSCROLL );
-	imagepanel->SetScrollRate( 5, 5 );
-	wxBoxSizer* image_panel_sizer;
-	image_panel_sizer = new wxBoxSizer( wxVERTICAL );
+	m_prop_panel->SetSizer( m_prop_sizer );
+	m_prop_panel->Layout();
+	m_prop_sizer->Fit( m_prop_panel );
+	m_imagepanel = new wxScrolledWindow( m_main_container, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHSCROLL|wxVSCROLL );
+	m_imagepanel->SetScrollRate( 5, 5 );
+	wxBoxSizer* m_image_panel_sizer;
+	m_image_panel_sizer = new wxBoxSizer( wxVERTICAL );
 
-	image_panel_container = new wxSplitterWindow( imagepanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_LIVE_UPDATE|wxSP_NOSASH );
-	image_container = new wxScrolledWindow( image_panel_container, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxBORDER_SUNKEN|wxHSCROLL|wxVSCROLL );
-	image_container->SetScrollRate( 5, 5 );
-	wxBoxSizer* image_sizer;
-	image_sizer = new wxBoxSizer( wxVERTICAL );
+	m_image_panel_container = new wxSplitterWindow( m_imagepanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_LIVE_UPDATE|wxSP_NOSASH );
+	m_image_container = new wxScrolledWindow( m_image_panel_container, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxBORDER_SUNKEN|wxHSCROLL|wxVSCROLL );
+	m_image_container->SetScrollRate( 5, 5 );
+	wxBoxSizer* m_image_sizer;
+	m_image_sizer = new wxBoxSizer( wxVERTICAL );
 
-	note = new wxAuiNotebook( image_container, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxAUI_NB_CLOSE_ON_ALL_TABS|wxAUI_NB_SCROLL_BUTTONS|wxAUI_NB_TAB_MOVE|wxAUI_NB_TAB_SPLIT|wxAUI_NB_TOP );
+	m_note = new wxAuiNotebook( m_image_container, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxAUI_NB_CLOSE_ON_ALL_TABS|wxAUI_NB_SCROLL_BUTTONS|wxAUI_NB_TAB_MOVE|wxAUI_NB_TAB_SPLIT|wxAUI_NB_TOP );
 
-	image_sizer->Add( note, 1, wxEXPAND, 5 );
+	m_image_sizer->Add( m_note, 1, wxEXPAND, 5 );
 
 
-	image_container->SetSizer( image_sizer );
-	image_container->Layout();
-	image_sizer->Fit( image_container );
-	image_info_panel = new wxScrolledWindow( image_panel_container, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
-	image_info_panel->SetScrollRate( 5, 5 );
-	image_info_panel->SetMinSize( wxSize( 200,-1 ) );
+	m_image_container->SetSizer( m_image_sizer );
+	m_image_container->Layout();
+	m_image_sizer->Fit( m_image_container );
+	m_image_info_panel = new wxScrolledWindow( m_image_panel_container, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
+	m_image_info_panel->SetScrollRate( 5, 5 );
+	m_image_info_panel->SetMinSize( wxSize( 200,-1 ) );
 
-	wxBoxSizer* image_info_panel_sizer;
-	image_info_panel_sizer = new wxBoxSizer( wxVERTICAL );
+	wxBoxSizer* m_image_info_panel_sizer;
+	m_image_info_panel_sizer = new wxBoxSizer( wxVERTICAL );
 
-	wxStaticBoxSizer* palette_sizer;
-	palette_sizer = new wxStaticBoxSizer( new wxStaticBox( image_info_panel, wxID_ANY, wxT("Palette") ), wxVERTICAL );
+	wxStaticBoxSizer* m_palette_sizer;
+	m_palette_sizer = new wxStaticBoxSizer( new wxStaticBox( m_image_info_panel, wxID_ANY, wxT("Palette") ), wxVERTICAL );
 
-	palette_grid = new wxPropertyGrid(palette_sizer->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize, wxPG_HIDE_MARGIN|wxPG_LIMITED_EDITING);
-	palette_grid->SetMaxSize( wxSize( 200,-1 ) );
+	m_palette_grid = new wxPropertyGrid(m_palette_sizer->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize, wxPG_HIDE_MARGIN|wxPG_LIMITED_EDITING);
+	m_palette_grid->SetMaxSize( wxSize( 200,-1 ) );
 
-	palette_header = palette_grid->Append( new wxPropertyCategory( wxT("amout | color"), wxT("amout | color") ) );
-	palette_sizer->Add( palette_grid, 1, wxEXPAND, 5 );
+	m_palette_header = m_palette_grid->Append( new wxPropertyCategory( wxT("amout | color"), wxT("amout | color") ) );
+	m_palette_sizer->Add( m_palette_grid, 1, wxEXPAND, 5 );
 
 
-	image_info_panel_sizer->Add( palette_sizer, 1, wxEXPAND, 5 );
+	m_image_info_panel_sizer->Add( m_palette_sizer, 1, wxEXPAND, 5 );
 
 
-	image_info_panel->SetSizer( image_info_panel_sizer );
-	image_info_panel->Layout();
-	image_info_panel_sizer->Fit( image_info_panel );
-	image_panel_container->SplitVertically( image_container, image_info_panel, -1 );
-	image_panel_sizer->Add( image_panel_container, 1, wxEXPAND, 5 );
+	m_image_info_panel->SetSizer( m_image_info_panel_sizer );
+	m_image_info_panel->Layout();
+	m_image_info_panel_sizer->Fit( m_image_info_panel );
+	m_image_panel_container->SplitVertically( m_image_container, m_image_info_panel, -1 );
+	m_image_panel_sizer->Add( m_image_panel_container, 1, wxEXPAND, 5 );
 
 
-	imagepanel->SetSizer( image_panel_sizer );
-	imagepanel->Layout();
-	image_panel_sizer->Fit( imagepanel );
-	main_container->SplitVertically( prop_panel, imagepanel, 280 );
-	main_sizer->Add( main_container, 1, wxEXPAND, 5 );
+	m_imagepanel->SetSizer( m_image_panel_sizer );
+	m_imagepanel->Layout();
+	m_image_panel_sizer->Fit( m_imagepanel );
+	m_main_container->SplitVertically( m_prop_panel, m_imagepanel, 280 );
+	m_main_sizer->Add( m_main_container, 1, wxEXPAND, 5 );
 
 
-	this->SetSizer( main_sizer );
+	this->SetSizer( m_main_sizer );
 	this->Layout();
-	statusBar = this->CreateStatusBar( 1, wxSTB_SIZEGRIP, wxID_ANY );
+	m_status_bar = this->CreateStatusBar( 1, wxSTB_SIZEGRIP, wxID_ANY );
 
 	this->Centre( wxBOTH );
 
 	// Connect Events
 	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( MainFrame::OnClose ) );
-	menu_file->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrame::OnExit ), this, menu_file_exit->GetId());
-	menu_help->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrame::OnAbout ), this, menu_help_about->GetId());
-	main_container->Connect( wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGING, wxSplitterEventHandler( MainFrame::main_containerOnSplitterSashPosChanging ), NULL, this );
-	prop_image_open->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::prop_image_openOnButtonClick ), NULL, this );
-	prop_image_autocrop->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( MainFrame::prop_image_autocropOnCheckBox ), NULL, this );
-	prop_mask_mode_val->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( MainFrame::prop_mask_mode_valOnChoice ), NULL, this );
-	prop_transp_col_val->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::prop_transp_col_valOnButtonClick ), NULL, this );
-	prop_exit_btn->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::prop_exit_btnOnButtonClick ), NULL, this );
-	execute_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::execute_buttonOnButtonClick ), NULL, this );
-	image_panel_container->Connect( wxEVT_SIZE, wxSizeEventHandler( MainFrame::image_panel_containerOnSize ), NULL, this );
-	image_panel_container->Connect( wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGED, wxSplitterEventHandler( MainFrame::image_panel_containerOnSplitterSashPosChanged ), NULL, this );
-	note->Connect( wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED, wxAuiNotebookEventHandler( MainFrame::noteOnAuiNotebookPageChanged ), NULL, this );
-	note->Connect( wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSE, wxAuiNotebookEventHandler( MainFrame::noteOnAuiNotebookPageClose ), NULL, this );
+	m_menu_file->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrame::OnExit ), this, m_menu_file_exit->GetId());
+	m_menu_help->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrame::OnAbout ), this, m_menu_help_about->GetId());
+	m_main_container->Connect( wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGING, wxSplitterEventHandler( MainFrame::main_containerOnSplitterSashPosChanging ), NULL, this );
+	m_prop_image_open->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::prop_image_openOnButtonClick ), NULL, this );
+	m_prop_image_autocrop->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( MainFrame::prop_image_autocropOnCheckBox ), NULL, this );
+	m_prop_mask_mode_val->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( MainFrame::prop_mask_mode_valOnChoice ), NULL, this );
+	m_prop_transp_col_val->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::prop_transp_col_valOnButtonClick ), NULL, this );
+	m_prop_exit_btn->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::prop_exit_btnOnButtonClick ), NULL, this );
+	m_execute_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::execute_buttonOnButtonClick ), NULL, this );
+	m_image_panel_container->Connect( wxEVT_SIZE, wxSizeEventHandler( MainFrame::image_panel_containerOnSize ), NULL, this );
+	m_image_panel_container->Connect( wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGED, wxSplitterEventHandler( MainFrame::image_panel_containerOnSplitterSashPosChanged ), NULL, this );
+	m_note->Connect( wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED, wxAuiNotebookEventHandler( MainFrame::noteOnAuiNotebookPageChanged ), NULL, this );
+	m_note->Connect( wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSE, wxAuiNotebookEventHandler( MainFrame::noteOnAuiNotebookPageClose ), NULL, this );
 }
 
 MainFrame::~MainFrame()
 {
 	// Disconnect Events
 	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( MainFrame::OnClose ) );
-	main_container->Disconnect( wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGING, wxSplitterEventHandler( MainFrame::main_containerOnSplitterSashPosChanging ), NULL, this );
-	prop_image_open->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::prop_image_openOnButtonClick ), NULL, this );
-	prop_image_autocrop->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( MainFrame::prop_image_autocropOnCheckBox ), NULL, this );
-	prop_mask_mode_val->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( MainFrame::prop_mask_mode_valOnChoice ), NULL, this );
-	prop_transp_col_val->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::prop_transp_col_valOnButtonClick ), NULL, this );
-	prop_exit_btn->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::prop_exit_btnOnButtonClick ), NULL, this );
-	execute_button->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::execute_buttonOnButtonClick ), NULL, this );
-	image_panel_container->Disconnect( wxEVT_SIZE, wxSizeEventHandler( MainFrame::image_panel_containerOnSize ), NULL, this );
-	image_panel_container->Disconnect( wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGED, wxSplitterEventHandler( MainFrame::image_panel_containerOnSplitterSashPosChanged ), NULL, this );
-	note->Disconnect( wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED, wxAuiNotebookEventHandler( MainFrame::noteOnAuiNotebookPageChanged ), NULL, this );
-	note->Disconnect( wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSE, wxAuiNotebookEventHandler( MainFrame::noteOnAuiNotebookPageClose ), NULL, this );
+	m_main_container->Disconnect( wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGING, wxSplitterEventHandler( MainFrame::main_containerOnSplitterSashPosChanging ), NULL, this );
+	m_prop_image_open->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::prop_image_openOnButtonClick ), NULL, this );
+	m_prop_image_autocrop->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( MainFrame::prop_image_autocropOnCheckBox ), NULL, this );
+	m_prop_mask_mode_val->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( MainFrame::prop_mask_mode_valOnChoice ), NULL, this );
+	m_prop_transp_col_val->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::prop_transp_col_valOnButtonClick ), NULL, this );
+	m_prop_exit_btn->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::prop_exit_btnOnButtonClick ), NULL, this );
+	m_execute_button->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainFrame::execute_buttonOnButtonClick ), NULL, this );
+	m_image_panel_container->Disconnect( wxEVT_SIZE, wxSizeEventHandler( MainFrame::image_panel_containerOnSize ), NULL, this );
+	m_image_panel_container->Disconnect( wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGED, wxSplitterEventHandler( MainFrame::image_panel_containerOnSplitterSashPosChanged ), NULL, this );
+	m_note->Disconnect( wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED, wxAuiNotebookEventHandler( MainFrame::noteOnAuiNotebookPageChanged ), NULL, this );
+	m_note->Disconnect( wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSE, wxAuiNotebookEventHandler( MainFrame::noteOnAuiNotebookPageClose ), NULL, this );
 
 }

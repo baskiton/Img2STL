@@ -62,12 +62,8 @@ private:
     wxColour m_mask_color;
     int m_height_mode;
     STLFile::file_type m_f_type;
-    // wxFileName m_image_path;
-    // wxFileName m_exit_path;
-
-//    wxString m_result;
 
 };
 
 
-#endif //IMG2STL_EXECUTOR_H_
+#endif // IMG2STL_EXECUTOR_H_

@@ -29,21 +29,17 @@ include_directories(
         res
         ${wxWidgets_INCLUDE_DIRS}
 )
-target_link_directories(
-        ${PROJECT_NAME} PUBLIC
-        lib
-)
+
 target_link_libraries(
         ${PROJECT_NAME}
         ${wxWidgets_LIBRARIES}
-        freeimage
 )
 
 target_sources(
         ${PROJECT_NAME}
         PUBLIC
 
-        src/main.cpp
+        src/Img2STL.cpp
         src/Img2STLMainFrame.cpp
         src/ui/ui.cpp
         src/Executor.cpp
@@ -59,7 +55,6 @@ add_compile_options(
 add_link_options(
         -Wall
 )
-
 
 set_target_properties(
         ${PROJECT_NAME}

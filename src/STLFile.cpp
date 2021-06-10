@@ -60,7 +60,6 @@ void STLFile::set_header(const wxString &str) {
 }
 
 void STLFile::save_file(STLFile::file_type f_type, const wxFileName &filename) {
-    /** TODO: to save also needed path and filename */
     wxFile file(filename.GetFullPath(), wxFile::write);
 
     if (!file.IsOpened()) {

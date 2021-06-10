@@ -47,39 +47,39 @@ class MainFrame : public wxFrame
 	private:
 
 	protected:
-		wxMenuBar* menubar;
-		wxMenu* menu_file;
-		wxMenu* menu_help;
-		wxSplitterWindow* main_container;
-		wxPanel* prop_panel;
-		wxButton* prop_image_open;
-		wxCheckBox* prop_image_autocrop;
-		wxStaticText* prop_den_lable;
-		wxSpinCtrlDouble* prop_den_val;
-		wxStaticText* prop_max_height_lable;
-		wxSpinCtrlDouble* prop_max_height_val;
-		wxStaticText* prop_min_height_lable;
-		wxSpinCtrlDouble* prop_min_height_val;
-		wxStaticText* prop_mask_mode_lable;
-		wxChoice* prop_mask_mode_val;
-		wxStaticText* prop_transp_col_lable;
-		wxButton* prop_transp_col_val;
-		wxStaticText* prop_height_mode_lable;
-		wxChoice* prop_height_mode_val;
-		wxStaticText* prop_exit_label;
-		wxButton* prop_exit_btn;
-		wxRadioBox* prop_exit_format;
-		wxButton* execute_button;
-		wxGauge* progress_bar;
-		wxStaticText* progress_label;
-		wxScrolledWindow* imagepanel;
-		wxSplitterWindow* image_panel_container;
-		wxScrolledWindow* image_container;
-		wxAuiNotebook* note;
-		wxScrolledWindow* image_info_panel;
-		wxPropertyGrid* palette_grid;
-		wxPGProperty* palette_header;
-		wxStatusBar* statusBar;
+		wxMenuBar* m_menu_bar;
+		wxMenu* m_menu_file;
+		wxMenu* m_menu_help;
+		wxSplitterWindow* m_main_container;
+		wxPanel* m_prop_panel;
+		wxButton* m_prop_image_open;
+		wxCheckBox* m_prop_image_autocrop;
+		wxStaticText* m_prop_den_lable;
+		wxSpinCtrlDouble* m_prop_den_val;
+		wxStaticText* m_prop_max_height_lable;
+		wxSpinCtrlDouble* m_prop_max_height_val;
+		wxStaticText* m_prop_min_height_lable;
+		wxSpinCtrlDouble* m_prop_min_height_val;
+		wxStaticText* m_prop_mask_mode_lable;
+		wxChoice* m_prop_mask_mode_val;
+		wxStaticText* m_prop_transp_col_lable;
+		wxButton* m_prop_transp_col_val;
+		wxStaticText* m_prop_height_mode_lable;
+		wxChoice* m_prop_height_mode_val;
+		wxStaticText* m_prop_exit_label;
+		wxButton* m_prop_exit_btn;
+		wxRadioBox* m_prop_exit_format;
+		wxButton* m_execute_button;
+		wxGauge* m_progress_bar;
+		wxStaticText* m_progress_label;
+		wxScrolledWindow* m_imagepanel;
+		wxSplitterWindow* m_image_panel_container;
+		wxScrolledWindow* m_image_container;
+		wxAuiNotebook* m_note;
+		wxScrolledWindow* m_image_info_panel;
+		wxPropertyGrid* m_palette_grid;
+		wxPGProperty* m_palette_header;
+		wxStatusBar* m_status_bar;
 
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnClose( wxCloseEvent& event ) { event.Skip(); }
@@ -104,10 +104,10 @@ class MainFrame : public wxFrame
 
 		~MainFrame();
 
-		void main_containerOnIdle( wxIdleEvent& )
+		void m_main_containerOnIdle( wxIdleEvent& )
 		{
-			main_container->SetSashPosition( 280 );
-			main_container->Disconnect( wxEVT_IDLE, wxIdleEventHandler( MainFrame::main_containerOnIdle ), NULL, this );
+			m_main_container->SetSashPosition( 280 );
+			m_main_container->Disconnect( wxEVT_IDLE, wxIdleEventHandler( MainFrame::m_main_containerOnIdle ), NULL, this );
 		}
 
 };

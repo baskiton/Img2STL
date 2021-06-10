@@ -1,7 +1,3 @@
-//
-// Created by baskiton on 05.05.2021.
-//
-
 #include "wx/image.h"
 #include "wx/log.h"
 #include "wx/msgqueue.h"
@@ -65,7 +61,6 @@ wxThread::ExitCode Executor::Entry() {
     if (!m_height_mode)
         height_factor *= -1;
 
-    // std::size_t idx = 0;
     for (const auto &img_name : m_files_list) {
         auto idx = &img_name - m_files_list.begin();
         if (TestDestroy())

@@ -1,7 +1,3 @@
-//
-// Created by baskiton on 07.05.2021.
-//
-
 #ifndef IMG2STL_WORKER_H_
 #define IMG2STL_WORKER_H_
 
@@ -39,4 +35,4 @@ private:
 };
 
 
-#endif //IMG2STL_WORKER_H_
+#endif // IMG2STL_WORKER_H_
