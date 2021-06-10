@@ -109,6 +109,10 @@ wxThread::ExitCode Executor::Entry() {
         }
 
         img_to_heightmap(bw, m_mask_mode, m_mask_color);
+
+        if (!bw.HasAlpha())
+            bw.InitAlpha();
+
         int img_h = bw.GetHeight();
         int img_w = bw.GetWidth();
         auto tot_count = img_h * (long)img_w;
