@@ -107,7 +107,7 @@ void Img2STLMainFrame::OnAbout(wxCommandEvent &event) {
 
     info.AddDeveloper("Alexander Baskikh aka baskiton");
     info.SetName("Image to STL");
-    info.SetVersion("2.0.0-beta");
+    info.SetVersion("2.0.0");
     info.SetDescription(
             wxString::Format(
                     "%s\n\n"
