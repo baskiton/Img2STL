@@ -9,6 +9,11 @@ if(WIN32)
         add_executable(${PROJECT_NAME} WIN32 res/res_msw.rc)
         find_package(wxWidgets REQUIRED mono)
 
+        target_link_options(
+                ${PROJECT_NAME} PRIVATE
+                -static -lpthread
+        )
+
 elseif(MACOSX_BUNDLE)
         add_executable(${PROJECT_NAME} MACOSX_BUNDLE)
 
@@ -41,6 +46,7 @@ target_sources(
 
         src/Img2STL.cpp
         src/Img2STLMainFrame.cpp
+        src/Img2STLAboutDialog.cpp
         src/ui/ui.cpp
         src/Executor.cpp
         src/Worker.cpp
@@ -58,7 +64,6 @@ target_link_options(
         ${PROJECT_NAME} PRIVATE
         -static-libgcc
         -static-libstdc++
-        -static -lpthread
         -Wall
 )
 

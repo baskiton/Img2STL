@@ -35,6 +35,10 @@
 #include <wx/splitter.h>
 #include <wx/statusbr.h>
 #include <wx/frame.h>
+#include <wx/statbmp.h>
+#include <wx/collpane.h>
+#include <wx/hyperlink.h>
+#include <wx/dialog.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -109,6 +113,33 @@ class MainFrame : public wxFrame
 			m_main_container->SetSashPosition( 280 );
 			m_main_container->Disconnect( wxEVT_IDLE, wxIdleEventHandler( MainFrame::m_main_containerOnIdle ), NULL, this );
 		}
+
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class AboutDialog
+///////////////////////////////////////////////////////////////////////////////
+class AboutDialog : public wxDialog
+{
+	private:
+
+	protected:
+		wxBoxSizer* m_sizer_main;
+		wxStaticBitmap* m_app_icon;
+		wxStaticText* m_name_version;
+		wxStaticText* m_description;
+		wxStaticText* m_using_str;
+		wxBoxSizer* m_url_sizer;
+		wxBoxSizer* m_sizer_license;
+		wxHyperlinkCtrl* m_copyright;
+		wxStdDialogButtonSizer* m_sdbSizer;
+		wxButton* m_sdbSizerOK;
+
+	public:
+		wxCollapsiblePane* m_license_pane;
+
+		AboutDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("About"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE );
+		~AboutDialog();
 
 };
 

@@ -279,3 +279,94 @@ MainFrame::~MainFrame()
 	m_note->Disconnect( wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSE, wxAuiNotebookEventHandler( MainFrame::noteOnAuiNotebookPageClose ), NULL, this );
 
 }
+
+AboutDialog::AboutDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxSize( -1,-1 ), wxSize( -1,-1 ) );
+
+	m_sizer_main = new wxBoxSizer( wxVERTICAL );
+
+	wxBoxSizer* bSizerInMain;
+	bSizerInMain = new wxBoxSizer( wxHORIZONTAL );
+
+	m_app_icon = new wxStaticBitmap( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxSize( 32,32 ), 0 );
+	bSizerInMain->Add( m_app_icon, 0, wxALL, 5 );
+
+	wxBoxSizer* bSizerDesc;
+	bSizerDesc = new wxBoxSizer( wxVERTICAL );
+
+	wxBoxSizer* bSizerName;
+	bSizerName = new wxBoxSizer( wxHORIZONTAL );
+
+
+	bSizerName->Add( 0, 0, 1, wxEXPAND, 5 );
+
+	m_name_version = new wxStaticText( this, wxID_ANY, wxT("%name% %version%"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_name_version->Wrap( -1 );
+	m_name_version->SetFont( wxFont( 12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
+
+	bSizerName->Add( m_name_version, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+
+
+	bSizerName->Add( 0, 0, 1, wxEXPAND, 5 );
+
+
+	bSizerDesc->Add( bSizerName, 1, wxEXPAND, 5 );
+
+	m_description = new wxStaticText( this, wxID_ANY, wxT("%description%"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_description->Wrap( -1 );
+	bSizerDesc->Add( m_description, 0, wxALL|wxEXPAND, 5 );
+
+	m_using_str = new wxStaticText( this, wxID_ANY, wxT("Using %wx%"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_using_str->Wrap( -1 );
+	bSizerDesc->Add( m_using_str, 0, wxEXPAND|wxALL, 5 );
+
+	m_url_sizer = new wxBoxSizer( wxVERTICAL );
+
+
+	bSizerDesc->Add( m_url_sizer, 1, wxEXPAND, 5 );
+
+
+	bSizerInMain->Add( bSizerDesc, 1, wxEXPAND, 5 );
+
+
+	m_sizer_main->Add( bSizerInMain, 0, wxEXPAND, 5 );
+
+	m_license_pane = new wxCollapsiblePane( this, wxID_ANY, wxT("License"), wxDefaultPosition, wxDefaultSize, wxCP_DEFAULT_STYLE );
+	m_license_pane->Collapse( true );
+
+	m_sizer_license = new wxBoxSizer( wxVERTICAL );
+
+
+	m_license_pane->GetPane()->SetSizer( m_sizer_license );
+	m_license_pane->GetPane()->Layout();
+	m_sizer_license->Fit( m_license_pane->GetPane() );
+	m_sizer_main->Add( m_license_pane, 1, wxEXPAND|wxALL, 5 );
+
+	wxBoxSizer* bSizerLow;
+	bSizerLow = new wxBoxSizer( wxHORIZONTAL );
+
+	m_copyright = new wxHyperlinkCtrl( this, wxID_ANY, wxT("%label%"), wxT("%url%"), wxDefaultPosition, wxDefaultSize, wxHL_DEFAULT_STYLE );
+	bSizerLow->Add( m_copyright, 1, wxALL|wxALIGN_BOTTOM, 5 );
+
+	m_sdbSizer = new wxStdDialogButtonSizer();
+	m_sdbSizerOK = new wxButton( this, wxID_OK );
+	m_sdbSizer->AddButton( m_sdbSizerOK );
+	m_sdbSizer->Realize();
+
+	bSizerLow->Add( m_sdbSizer, 0, wxEXPAND|wxALL, 5 );
+
+
+	m_sizer_main->Add( bSizerLow, 0, wxEXPAND, 5 );
+
+
+	this->SetSizer( m_sizer_main );
+	this->Layout();
+	m_sizer_main->Fit( this );
+
+	this->Centre( wxBOTH );
+}
+
+AboutDialog::~AboutDialog()
+{
+}

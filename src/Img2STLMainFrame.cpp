@@ -1,15 +1,17 @@
 #include <map>
 
 #include "Img2STLMainFrame.h"
+#include "Img2STLAboutDialog.h"
 #include "wx/aboutdlg.h"
 #include "wx/filedlg.h"
 #include "wx/dirdlg.h"
-#include "wx/statbmp.h"
 #include "wx/colordlg.h"
 
 #include "Executor.h"
 #include "ImgExtFunc.h"
 #include "ThreadCommands.h"
+#include "app_icon.xpm"
+#include "static_text.h"
 
 
 // helper functions
@@ -101,39 +103,19 @@ void Img2STLMainFrame::OnExit(wxCommandEvent &event) {
 }
 
 void Img2STLMainFrame::OnAbout(wxCommandEvent &event) {
-    wxAboutDialogInfo info;
+    Img2STLAboutDialog info(this);
 
-    info.AddDeveloper("Alexander Baskikh aka baskiton");
-    info.SetName("Image to STL");
-    info.SetVersion("2.0.0");
-    info.SetDescription(
-            wxString::Format(
-                    "%s\n\n"
-                    "Application for converting images to STL (3D model for printing)",
-                    wxbuildinfo(long_f)
-            )
-    );
-    info.SetLicence(
-        "MIT License\n\n"
-        "Copyright (c) 2021 Alexander Baskikh\n\n"
-        "Permission is hereby granted, free of charge, to any person obtaining a copy "
-        "of this software and associated documentation files (the \"Software\"), to deal "
-        "in the Software without restriction, including without limitation the rights "
-        "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell "
-        "copies of the Software, and to permit persons to whom the Software is "
-        "furnished to do so, subject to the following conditions:\n\n"
-        "The above copyright notice and this permission notice shall be included in all "
-        "copies or substantial portions of the Software.\n\n"
-        "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR "
-        "IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, "
-        "FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE "
-        "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER "
-        "LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, "
-        "OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE "
-        "SOFTWARE."
-    );
-    info.SetWebSite("https://github.com/baskiton/Img2STL", "GitHub");
-    wxAboutBox(info, this);
+    info.set_icon(wxICON(app_icon));
+    info.set_name(ST_NAME, ST_VERSION);
+    info.set_description(ST_DESCRIPTION);
+    info.set_using(wxString::Format("Using %s", wxbuildinfo(long_f)));
+    info.set_license(ST_LICENSE);
+    info.set_copyright(ST_LICENSE_LINK, ST_COPYRIGHT);
+    info.add_link("https://github.com/baskiton/Img2STL", "Homapage: GitHub");
+
+    info.fit();
+    info.ShowModal();
+    info.Destroy();
 }
 
 void Img2STLMainFrame::main_containerOnSplitterSashPosChanging(wxSplitterEvent &event) {
