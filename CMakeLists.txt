@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.19)
-project(Img2STL VERSION 2.0.0)
+project(Img2STL VERSION 2.0.1)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -18,9 +18,6 @@ elseif(MACOSX_BUNDLE)
         add_executable(${PROJECT_NAME} MACOSX_BUNDLE)
 
 else()  # Linux
-        set(wxWidgets_USE_DEBUG OFF)
-        set(wxWidgets_USE_UNICODE ON)
-        set(wxWidgets_USE_STATIC ON)
         set(wxWidgets_CONFIG_OPTIONS --static=yes --version=3.1)
         add_executable(${PROJECT_NAME})
 

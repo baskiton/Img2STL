@@ -3,7 +3,7 @@
 
 
 auto ST_NAME = "Image to STL";
-auto ST_VERSION = "2.0.0";
+auto ST_VERSION = "2.0.1";
 auto ST_DESCRIPTION = "Application for converting images to STL (3D model for printing)";
 auto ST_COPYRIGHT = "Copyright (c) 2019-2021 Alexander Baskikh";
 auto ST_LICENSE_LINK = "https://github.com/baskiton/Img2STL/blob/main++/LICENSE";
