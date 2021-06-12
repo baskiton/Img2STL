@@ -49,11 +49,16 @@ target_sources(
         src/Logging.cpp
 )
 
-add_compile_options(
+target_compile_options(
+        ${PROJECT_NAME} PRIVATE
         -Wall
 )
 
-add_link_options(
+target_link_options(
+        ${PROJECT_NAME} PRIVATE
+        -static-libgcc
+        -static-libstdc++
+        -static -lpthread
         -Wall
 )
 

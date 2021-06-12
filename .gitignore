@@ -38,6 +38,8 @@ bin/
 build/
 cmake-build-debug/
 cmake-build-release/
+cmake-build-debug-mingw-msys/
+cmake-build-release-mingw-msys/
 dep/
 include/msvc/
 include/wx/

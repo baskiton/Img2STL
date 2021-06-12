@@ -4,10 +4,8 @@
 #include "wx/aboutdlg.h"
 #include "wx/filedlg.h"
 #include "wx/dirdlg.h"
-#include "wx/hashmap.h"
 #include "wx/statbmp.h"
 #include "wx/colordlg.h"
-#include "wx/msgqueue.h"
 
 #include "Executor.h"
 #include "ImgExtFunc.h"
@@ -45,9 +43,9 @@ wxString wxbuildinfo(wxbuildinfoformat format) {
 Img2STLMainFrame::Img2STLMainFrame(const wxString &t_title)
     :
         MainFrame(nullptr, wxID_ANY, t_title),
+        m_executor(nullptr),
         m_files_directory(wxGetCwd()),
         m_exit_files_dir(wxGetCwd()),
-        m_executor(nullptr),
         m_logger("log.txt")
     {
     Bind(wxEVT_THREAD, &Img2STLMainFrame::OnThreadUpdate, this);

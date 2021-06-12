@@ -136,7 +136,7 @@ wxThread::ExitCode Executor::Entry() {
             }
         }
 
-        for (auto i = 0; i < m_thr_pool.GetCount(); ++i)
+        for (size_t i = 0; i < m_thr_pool.GetCount(); ++i)
             m_q_to_worker.Post(WorkerMessage{WorkerMessage::wMSG_END});
 
         while (!TestDestroy()) {
