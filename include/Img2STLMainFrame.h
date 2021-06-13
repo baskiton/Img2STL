@@ -13,7 +13,7 @@
 #include "Logging.h"
 
 
-class Img2STLMainFrame : public MainFrame, private wxLog {
+class Img2STLMainFrame : public MainFrame {
 protected:
     // Handlers for MainFrame events.
     void OnClose(wxCloseEvent &event) wxOVERRIDE;
