@@ -1,6 +1,3 @@
-# from enum import Enum, auto
-
-
 class ThrCmds:
     thrCMD_POOL_END = 0
     thrCMD_POOL_POINT = 1

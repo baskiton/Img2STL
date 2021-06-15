@@ -1,10 +1,11 @@
+from __future__ import annotations
+
 import os
 import wx
 import struct
 
-from __future__ import annotations
 from typing import List
-from ..stl import Polygon3
+from .geometry import Polygon3
 
 
 class STLFile:
@@ -26,7 +27,7 @@ class STLFile:
     def clear(self) -> None:
         self._polygons_list.clear()
 
-    def set_header(self, hdr: str) -> bool:
+    def set_header(self, hdr: str) -> None:
         self._name = f"{hdr:80}"
         if len(self._name) > 80:
             self._name = self._name[:80]
@@ -46,14 +47,14 @@ class STLFile:
         return len(self._polygons_list)
 
     def to_ascii(self) -> str:
-        result = f"solid {self._name.replace(' \n\t', '_')}\n"
+        result = "solid {}\n".format(self._name.replace(" \n\t", '_'))
 
         for polygon in self._polygons_list:
-            result += f" facet normal {polygon.nrm}\n"      \
-                      f"  outer loop\n"                     \
-                      f"   vertex normal {polygon.vx_1}\n"  \
-                      f"   vertex normal {polygon.vx_2}\n"  \
-                      f"   vertex normal {polygon.vx_3}\n"  \
+            result += f" facet normal {polygon.nrm}\n"  \
+                      f"  outer loop\n"                 \
+                      f"   vertex {polygon.vx_1}\n"     \
+                      f"   vertex {polygon.vx_2}\n"     \
+                      f"   vertex {polygon.vx_3}\n"     \
                       f"  endloop\n endfacet\n"
 
         result += f"endsolid {self._name}"

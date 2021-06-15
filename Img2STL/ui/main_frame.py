@@ -2,6 +2,8 @@ import os
 import wx
 import wx.propgrid as wx_pg
 
+from typing import List
+
 from .ui import MainFrame
 from .about_dialog import Img2STLAboutDialog
 from ..static import *
@@ -9,25 +11,24 @@ from ..utils import get_bound_box, ThrCmds, ThreadEvent, Logging, Executor
 
 
 def wxbuildinfo():
-    wx_buld = wx.VERSION_STRING
+    wx_build = wx.VERSION_STRING
     platform = wx.PlatformInformation()
     os_name = platform.GetOperatingSystemFamilyName()
 
-    return f"wxPython-{wx_buld}-{os_name}"
+    return f"wxPython-{wx_build}-{os_name}"
 
 
 class Img2STLMainFrame(MainFrame):
     def __init__(self, title: str = "Img2STL"):
         super().__init__(title=title)
-        # self.Title = title
 
         self._files_directory = os.getcwd()
         self._exit_files_dir = os.getcwd()
-        self._files_list = []
-        self._exit_files = []
+        self._files_list: List[str] = []
+        self._exit_files: List[str] = []
 
         self._logger = Logging("log.txt")
-        self._executor: Executor = None
+        self._executor: Executor or None = None
 
         self._cnt = False
         self.app_icon = wx.Icon(APP_ICON)
@@ -177,7 +178,7 @@ class Img2STLMainFrame(MainFrame):
         info.set_using("using " + wxbuildinfo())
         info.set_license(ST_LICENSE)
         info.set_copyright(ST_LICENSE_LINK, ST_COPYRIGHT)
-        info.add_link("https://github.com/baskiton/Img2STL", "Homapage: GitHub")
+        info.add_link("https://github.com/baskiton/Img2STL", "Homepage: GitHub")
 
         info.fit()
         info.ShowModal()
@@ -192,9 +193,8 @@ class Img2STLMainFrame(MainFrame):
             "Open image files",
             self._files_directory,
             wx.EmptyString,
-            f"Images file (*.bmp *.gif *.png *.jpg)|*.bmp;*.gif;*.png;*.jpg|"   \
-            f"All files ({wx.FileSelectorDefaultWildcardStr})|" \
-            f"{wx.FileSelectorDefaultWildcardStr}",
+            f"Images file (*.bmp *.gif *.png *.jpg)|*.bmp;*.gif;*.png;*.jpg|"
+            f"All files (*.*)|*.*",
             wx.FD_OPEN | wx.FD_MULTIPLE | wx.FD_CHANGE_DIR
         )
 
@@ -207,9 +207,9 @@ class Img2STLMainFrame(MainFrame):
         self._exit_files = open_file_dlg.GetFilenames()
 
         names = "; ".join(self._exit_files)
-        for item in self._exit_files:
+        for idx, item in enumerate(self._exit_files):
             fn, _ = os.path.splitext(item)
-            item = f"{fn}.stl"
+            self._exit_files[idx] = f"{fn}.stl"
 
         wx.LogMessage(f"Files {names} opened.")
 
@@ -253,9 +253,8 @@ class Img2STLMainFrame(MainFrame):
                 "Save File",
                 self._exit_files_dir,
                 self._exit_files[0],
-                f"STL file (*.stl)|*.stl|"  \
-                f"All files ({wx.FileSelectorDefaultWildcardStr})"
-                f"|{wx.FileSelectorDefaultWildcardStr}",
+                f"STL file (*.stl)|*.stl|"
+                f"All files (*.*)|*.*",
                 wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT
             )
             if save_file_dlg.ShowModal() == wx.ID_CANCEL:
@@ -279,9 +278,20 @@ class Img2STLMainFrame(MainFrame):
     def execute_buttonOnButtonClick(self, event) -> None:
         self.m_progress_bar.SetValue(0)
 
-        # TODO
         self._executor = Executor(
-            self
+            evt_hdlr=self,
+            autocrop=self.m_prop_image_autocrop.GetValue(),
+            density=self.m_prop_den_val.GetValue(),
+            height_max=self.m_prop_max_height_val.GetValue(),
+            height_min=self.m_prop_min_height_val.GetValue(),
+            mask_mode=self.m_prop_mask_mode_val.GetSelection(),
+            mask_color=self.m_prop_transp_col_val.GetBackgroundColour(),
+            height_mode=self.m_prop_height_mode_val.GetSelection(),
+            f_type=self.m_prop_exit_format.GetSelection(),
+            files_dir=self._files_directory,
+            files_list=self._files_list,
+            exit_files_dir=self._exit_files_dir,
+            exit_files_list=self._exit_files
         )
 
         self._executor.start()
