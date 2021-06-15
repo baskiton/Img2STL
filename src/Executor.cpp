@@ -1,3 +1,5 @@
+#include <utility>
+
 #include "wx/image.h"
 #include "wx/log.h"
 #include "wx/msgqueue.h"
@@ -7,6 +9,7 @@
 #include "ImgExtFunc.h"
 #include "ThreadCommands.h"
 #include "Worker.h"
+
 
 Executor::Executor(
         Img2STLMainFrame *t_evt_hdlr,
@@ -19,7 +22,7 @@ Executor::Executor(
         double t_height_max,
         double t_height_min,
         int t_mask_mode,
-        const wxColour &t_mask_color,
+        wxColour t_mask_color,
         int t_height_mode,
         STLFile::file_type t_f_type
     )
@@ -35,7 +38,7 @@ Executor::Executor(
         m_height_max(t_height_max),
         m_height_min(t_height_min),
         m_mask_mode(t_mask_mode),
-        m_mask_color(t_mask_color),
+        m_mask_color(std::move(t_mask_color)),
         m_height_mode(t_height_mode),
         m_f_type(t_f_type)
     {
@@ -128,11 +131,11 @@ wxThread::ExitCode Executor::Entry() {
                 if (((x + 1) < img_w) && bw.GetAlpha(x + 1, y)) {
                     z1 = bw.GetRed(x + 1, y) / height_factor + mod;
                 }
-                if (((y + 1) < img_h) && bw.GetAlpha(x, y + 1)) {
-                    z2 = bw.GetRed(x, y + 1) / height_factor + mod;
+                if (((y - 1) >= 0) && bw.GetAlpha(x, y - 1)) {
+                    z2 = bw.GetRed(x, y - 1) / height_factor + mod;
                 }
 
-                m_q_to_worker.Post(WorkerMessage{WorkerMessage::wMSG_RUN, x, y, z0, z1, z2});
+                m_q_to_worker.Post(WorkerMessage{WorkerMessage::wMSG_RUN, x, img_h - 1 - y, z0, z1, z2});
             }
         }
 
@@ -149,7 +152,7 @@ wxThread::ExitCode Executor::Entry() {
                 pb_val += points_per_file;
                 break;
             }
-             Sleep(100);
+            Sleep(50);
         }
 
         if (!TestDestroy()) {

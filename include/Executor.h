@@ -30,7 +30,7 @@ public:
         double t_height_max,
         double t_height_min,
         int t_mask_mode,
-        const wxColour &t_mask_color,
+        wxColour t_mask_color,
         int t_height_mode,
         STLFile::file_type t_f_type
     );
