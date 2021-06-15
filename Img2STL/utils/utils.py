@@ -57,8 +57,8 @@ def get_bound_box(img: wx.Image, mode: bool, color: wx.Colour) -> Tuple[wx.Size,
         yt = img_w * y
         for x in range(img_w):
             xt = (yt + x) * 3
-            if ((not mode and alpha and alpha[yt+x]) or
-                (mode and (data[xt:xt+3] != mask_v))):
+            if ((not mode and alpha and alpha[yt + x]) or
+                    (mode and (data[xt:xt + 3] != mask_v))):
                 has_data = True
                 if x < bbox[0]:
                     bbox[0] = x
