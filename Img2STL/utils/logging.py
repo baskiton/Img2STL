@@ -18,13 +18,12 @@ class Logging(wx.Log):
     def __del__(self) -> None:
         wx.Log.SetActiveTarget(self._old_logger)
 
-    def DoLogLine(self, level: str, timestr: str, threadstr: str, msg: str) -> None:
+    def do_log_line(self, level: str, timestr: str, msg: str) -> None:
         with open(self._log_file_name, "a+") as flog:
-            t_str = f"<{level:8}> {timestr:8} [{threadstr:10}] {msg}\n"
+            t_str = f"<{level:8}> {timestr:8} {msg}\n"
             flog.write(t_str)
 
-    def DoLogRecord(self, level, msg, info: wx.LogRecordInfo):
-        level_str = f"{level}"
+    def DoLogRecord(self, level, msg: str, info: wx.LogRecordInfo) -> None:
         postfix = ""
 
         if level <= wx.LOG_Warning or level == wx.LOG_Trace or level == wx.LOG_Debug:
@@ -50,10 +49,8 @@ class Logging(wx.Log):
         else:
             level_str = "USER"
 
-        self.DoLogLine(
+        self.do_log_line(
             level_str,
             datetime.utcfromtimestamp(info.timestamp).strftime("%H:%M:%S"),
-            "threadId",
             f"{msg} {postfix}"
         )
-

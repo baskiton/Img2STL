@@ -92,6 +92,7 @@ class Executor(Thread):
                 proc = Worker(i, self._density, self._q_to_worker, self._q_from_worker)
                 self._worker_pool.append(proc)
                 proc.start()
+                wx.LogMessage(f"{proc.name} is running.")
 
             if len(self._worker_pool) == 0:
                 wx.LogError("Worker Pool is empty!")
@@ -147,6 +148,9 @@ class Executor(Thread):
             #     proc.join()
             while self._q_from_worker.qsize() != len(self._worker_pool):
                 sleep(0.05)
+
+            for proc in self._worker_pool:
+                wx.LogMessage(f"{proc.name} is stopped.")
 
             self._worker_pool.clear()
             self._generate_stl(idx)

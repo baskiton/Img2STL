@@ -35,10 +35,10 @@ class Img2STLMainFrame(MainFrame):
 
         self.Fit()
 
-        self.Bind(wx.EVT_THREAD, self.OnThreadUpdate)
+        self.Bind(wx.EVT_THREAD, self.on_thread_update)
         wx.LogMessage("The program is running.")
 
-    def OnThreadUpdate(self, event: ThreadEvent) -> None:
+    def on_thread_update(self, event: ThreadEvent) -> None:
         ev_id: ThrCmds = event.GetId()
 
         if ev_id == ThrCmds.thrCMD_POOL_END:
@@ -149,7 +149,7 @@ class Img2STLMainFrame(MainFrame):
             if rgb in table:
                 table[rgb][0] += 1
             else:
-                table[rgb]=[1, wx.Colour(r, g, b)]
+                table[rgb] = [1, wx.Colour(r, g, b)]
 
         self.m_palette_grid.Clear()
         self.m_palette_grid.Append(wx_pg.PropertyCategory("amount | color"))

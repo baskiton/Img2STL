@@ -1,6 +1,8 @@
+import wx
+
 from multiprocessing import Process, Queue
 from ..stl import Vertex3, Polygon3, STLFile
-from ..utils import WorkerMessage, WMCmds
+from .utils import WorkerMessage, WMCmds
 
 
 class Worker(Process):
@@ -11,12 +13,9 @@ class Worker(Process):
         self._q_to_exec = q_to_exec
         self._file = STLFile()
 
-        # wx.LogMessage(f"{self.name} created.")
-        print(f"{self.name} created.")
+        wx.LogMessage(f"{self.name} created.")
 
     def run(self) -> None:
-        # wx.LogMessage(f"{self.name} is running.")
-        print(f"{self.name} is running.")
 
         while True:
             msg: WorkerMessage = self._q_from_exec.get()
@@ -24,14 +23,10 @@ class Worker(Process):
             if msg.cmd == WMCmds.wMSG_RUN:
                 self._pixel_calc(msg)
             elif msg.cmd == WMCmds.wMSG_END:
-                print("wMSG_END")
                 self._q_to_exec.put(self._file)
                 break
             elif msg.cmd == WMCmds.wMSG_STOP:
                 break
-
-        # wx.LogMessage(f"{self.name} is stopped.")
-        print(f"{self.name} is stopped.")
 
     def _pixel_calc(self, msg: WorkerMessage) -> None:
         if msg.z0 != 0:
