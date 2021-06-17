@@ -8,11 +8,14 @@
 Application for converting images to STL (3D-model for printing)
 
 ## Installing
-Before installing, make sure you have Python version 3.7 installed.\
+Before installing, make sure you have Python version 3.7 or higher installed.\
 Otherwise, install it from [python site][python_site]
 
 Then type to console:\
 `pip install Img2STL`
+
+###### For Linux users:
+You need to manually install the wxPython package following the [instructions here][wx_site]
 
 ## Usage
 After install, you may launch this app with next command:\
@@ -61,6 +64,5 @@ Chrome browser):
 ![img](docs/example.png)
 
 
-[latest_release]: https://github.com/baskiton/Img2STL/releases/latest
 [python_site]: https://www.python.org/
 [wx_site]: https://wxpython.org/pages/downloads/

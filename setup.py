@@ -42,7 +42,7 @@ setup(
         'numpy==1.20.3',
         'Pillow==8.2.0',
         'six==1.16.0',
-        'wxPython==4.1.1',
+        'wxPython==4.1.1;platform_system!="Linux"',
     ],
     classifiers=[
         'License :: OSI Approved :: MIT License',
