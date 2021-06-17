@@ -1,9 +1,9 @@
 # Img2STL
-![PyPI](https://img.shields.io/pypi/v/Img2STL)
-![PyPI - Status](https://img.shields.io/pypi/status/Img2STL)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/Img2STL)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Img2STL)
-![PyPI - License](https://img.shields.io/pypi/l/Img2STL)
+[![PyPI](https://img.shields.io/pypi/v/Img2STL)](https://pypi.org/project/Img2STL/)
+[![PyPI - Status](https://img.shields.io/pypi/status/Img2STL)](https://pypi.org/project/Img2STL/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/Img2STL)](https://pypi.org/project/Img2STL/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Img2STL)](https://pypi.org/project/Img2STL/)
+[![PyPI - License](https://img.shields.io/pypi/l/Img2STL)](https://github.com/baskiton/Img2STL/blob/main_py/LICENSE)
 
 Application for converting images to STL (3D-model for printing)
 
