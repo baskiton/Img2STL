@@ -1,7 +1,10 @@
+from .. import __version__
+
+
 APP_ICON = "./Img2STL/static/app_icon.ico"
 
 ST_NAME = "Image to STL"
-ST_VERSION = "1.3.0-beta"
+ST_VERSION = __version__
 ST_DESCRIPTION = "Application for converting images to STL (3D model for printing)"
 ST_COPYRIGHT = "Copyright (c) 2019-2021 Alexander Baskikh"
 ST_LICENSE_LINK = "https://github.com/baskiton/Img2STL/blob/main++/LICENSE"
