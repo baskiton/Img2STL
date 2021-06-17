@@ -1,4 +1,6 @@
 # Img2STL
+![GitHub all releases](https://img.shields.io/github/downloads/baskiton/Img2STL/total)
+![GitHub](https://img.shields.io/github/license/baskiton/Img2STL)
 
 Application for converting images to STL (3D-model for printing)
 
