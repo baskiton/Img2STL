@@ -38,6 +38,9 @@ setup(
     long_description=get_long_description(),
     long_description_content_type="text/markdown",
     packages=find_packages(),
+    package_data={
+        '':['app_icon.ico'],
+    },
     install_requires=[
         'numpy==1.20.3',
         'Pillow==8.2.0',

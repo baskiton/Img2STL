@@ -1,7 +1,9 @@
+import pkg_resources
+
 from .. import __version__
 
 
-APP_ICON = "./Img2STL/static/app_icon.ico"
+APP_ICON = pkg_resources.resource_filename(__name__, 'app_icon.ico')
 
 ST_NAME = "Image to STL"
 ST_VERSION = __version__
